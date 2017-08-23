@@ -1,16 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 // import logo from './logo.svg';
 // import './App.css';
 
-import Signin from './components/Signin';
-import Signup from './components/Signup';
+import Routes from './components/Routes';
 
-class App extends Component {
-  render() {
-    return (
-      <Signup/>
-    );
-  }
+const App= () => {
+  return <Routes/>;
 }
-
 export default App;

@@ -38,7 +38,7 @@ class Signin extends Component {
     return(
       <div>
         <form>
-          <h2>Please sign in</h2>
+          <h2>Please Sign in</h2>
           <FieldGroup
             id="formControlsEmail"
             type="email"
@@ -59,7 +59,7 @@ class Signin extends Component {
           <Button type="submit" bsStyle="primary" bsSize="large" block onClick={this.signIn}>Sign in</Button>
         </form>
         <div>
-          {/* <Link to="/signup">{'Signup'}</Link> */}
+          <Link to='/signup'>Signup</Link>
         </div>
       </div>
     );
