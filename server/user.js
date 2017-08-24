@@ -27,7 +27,7 @@ module.exports = {
   validateSignIn: function(email, password, callback) {
     pool.getConnection((poolErr, connection) => {
       if(poolErr) throw poolErr;
-      var sqlquery = "select name, email from `user` where email='"+email+"' and '"+password+"';";
+      var sqlquery = "select name, email from `user` where email='"+email+"' and password='"+password+"';";
       connection.query(sqlquery, (qErr, result, fields) => {
         if(qErr) throw qErr;
         connection.release();
