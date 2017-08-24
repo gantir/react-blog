@@ -21,5 +21,22 @@ module.exports = {
         return result.insertId;
       });
     });
+  },
+
+  validateSignIn: function(email, password, callback) {
+    connection.connect((err) => {
+      if(err) throw err;
+      var sqlquery = "select name, email from `user` where email='"+email+"' and '"+password+"';";
+      connection.query(sqlquery, (err, result, fields) => {
+        if(err) throw err;
+        console.log(result);
+        if(null == result || 0 === result.length) {
+          callback(false);
+        }
+        else {
+          callback(true);
+        }
+      });
+    });
   }
 }

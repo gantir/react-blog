@@ -21,11 +21,13 @@ app.listen(PORT, () => {
 app.post('/signin', function(req, res) {
   var email = req.body.email;
   var password = req.body.password;
-  if('admin@example.com' === email && 'admin' === password) {
-    res.send('Success');
-  } else {
-    res.send('Failure');
-  }
+  user.validateSignIn(email, password, (result) => {
+    if(result) {
+      res.send('Success');
+    } else {
+      res.send('Wrong email or password');
+    }
+  });
 })
 
 app.post('/signup', function(req, res) {
