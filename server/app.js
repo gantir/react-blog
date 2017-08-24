@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require("body-parser");
+var user = require('./user');
 
 var app = express();
 var PORT = 9000;
@@ -31,9 +32,17 @@ app.post('/signup', function(req, res) {
   var name = req.body.name;
   var email = req.body.email;
   var password = req.body.password;
-  if('admin@example.com' === email && 'admin' === password && name && 0 !== name)) {
-    res.send('Success');
-  } else {
+
+  try {
+    if(name && email && password) {
+      user.signup(name, email, password);
+      res.send('Success');
+    }
+    else {
+      res.send('Failure');
+    }
+  } catch(e){
+    console.log(e);
     res.send('Failure');
   }
 })
