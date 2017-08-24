@@ -1,7 +1,8 @@
 var mysql = require('mysql');
 var assert = require('assert');
 
-var connection = mysql.createConnection({
+var pool = mysql.createPool({
+  connectionLimit : 10,
   host: 'localhost',
   user: 'root',
   password: 'admin123',
@@ -9,14 +10,14 @@ var connection = mysql.createConnection({
   database: 'react_blog'
 });
 
-
 module.exports = {
   signup: function(name, email, password) {
-    connection.connect((err) => {
+    pool.getConnection((err, connection) => {
       if (err) throw err;
       var sqlquery = "insert into `user` (`name`,`email`,`password`) values('"+name+"','"+email+"','"+password+"');";
-      connection.query(sqlquery, (err, result) =>{
+      connection.query(sqlquery, (err, result) => {
         if(err) throw err;
+        connection.release();
         console.log('1 record inserted');console.log(result);
         return result.insertId;
       });
@@ -24,11 +25,12 @@ module.exports = {
   },
 
   validateSignIn: function(email, password, callback) {
-    connection.connect((err) => {
-      if(err) throw err;
+    pool.getConnection((poolErr, connection) => {
+      if(poolErr) throw poolErr;
       var sqlquery = "select name, email from `user` where email='"+email+"' and '"+password+"';";
-      connection.query(sqlquery, (err, result, fields) => {
-        if(err) throw err;
+      connection.query(sqlquery, (qErr, result, fields) => {
+        if(qErr) throw qErr;
+        connection.release();
         console.log(result);
         if(null == result || 0 === result.length) {
           callback(false);

@@ -10,12 +10,8 @@ app.use(express.static(path.join(__dirname,"/html")));
 app.use(bodyParser.json());
 app.use(function(req, res, next){
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Headers" , "Origin, X-Requested-With, Content-Type, Accept");
   next();
-});
-
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}!`)
 });
 
 app.post('/signin', function(req, res) {
@@ -28,7 +24,7 @@ app.post('/signin', function(req, res) {
       res.send('Wrong email or password');
     }
   });
-})
+});
 
 app.post('/signup', function(req, res) {
   var name = req.body.name;
@@ -47,4 +43,8 @@ app.post('/signup', function(req, res) {
     console.log(e);
     res.send('Failure');
   }
-})
+});
+
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}!`)
+});

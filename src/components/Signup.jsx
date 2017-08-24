@@ -68,7 +68,7 @@ class Signup extends Component {
           required
           onChange={this.handlePasswordChange}
         />
-        <Button type="submit" bsStyle="primary" bsSize="large" block onClick={this.signUp}>Sign Up</Button>
+        <Button type="button" bsStyle="primary" bsSize="large" block onClick={this.signUp}>Sign Up</Button>
       </form>
     )
   }
