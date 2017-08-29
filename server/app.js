@@ -53,6 +53,21 @@ app.post('/signup', function(req, res) {
   }
 });
 
+app.post('/addpost', (req,res) => {
+  var title = req.body.title;
+  var subject = req.body.subject;
+  var email = req.session.email;
+  try {
+    console.log(title,subject,req.session);
+    res.send('success');
+  }
+  catch(e) {
+    console.log(e);
+    res.send('Failure');
+  }
+
+});
+
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`)
 });
