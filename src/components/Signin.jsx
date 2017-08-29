@@ -27,6 +27,9 @@ class Signin extends Component {
       email:this.state.email,
       password:this.state.password
     }).then((response) => {
+      if('success' === response.data) {
+        window.location.assign('/home');
+      }
       console.log(response);
     }).catch((error) => {
       console.log(error);
