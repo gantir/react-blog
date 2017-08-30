@@ -15,6 +15,9 @@ class Home extends Component {
               <LinkContainer to="/addpost" activeClassName="active">
                 <NavItem aria-label="presentation">Add</NavItem>
               </LinkContainer>
+              <LinkContainer to="/profile" activeClassName="active">
+                <NavItem aria-label="presentation">Profile</NavItem>
+              </LinkContainer>
               <LinkContainer to="#" activeClassName="active">
                 <NavItem aria-label="presentation">Logout</NavItem>
               </LinkContainer>
