@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Table, Glyphicon} from 'react-bootstrap';
 import axios from 'axios';
 
 import Home from './Home';
@@ -27,15 +27,35 @@ class ShowPost extends Component {
   render() {
     return(
       <Home>
-        <ListGroup>
-          {
-            this.state.posts.map((post, index) => {
-              return <ListGroupItem href="#" key={index} header={post.title} active>
-                {post.subject}
-              </ListGroupItem>
-            })
-          }
-        </ListGroup>
+        <Table striped bordered condensed hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Subject</th>
+              <th></th>
+              <th></th>  
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.state.posts.map((post, index) => {
+                return <tr key={index}>
+                  <td>{post.id}</td>
+                  <td>{post.title}</td>
+                  <td>{post.subject}</td>
+                  <td>
+                    <Glyphicon glyph="pencil"></Glyphicon>
+                  </td>
+                  <td>
+                  <Glyphicon glyph="remove"></Glyphicon>
+                  </td>
+                </tr>
+              })
+            }
+          </tbody>
+
+        </Table>
       </Home>
     );
   }
