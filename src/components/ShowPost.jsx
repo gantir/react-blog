@@ -1,26 +1,40 @@
 import React, {Component} from 'react';
 import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import axios from 'axios';
+
 import Home from './Home';
+
 
 class ShowPost extends Component {
   constructor(props){
     super(props);
-    console.log(props);
+    this.state = {
+      posts:[]
+    }
   }
 
+  componentDidMount = () => {
+    var self = this;
+    axios.post('http://localhost:9000/getpost',{
+    }).then((response) => {
+      self.setState({posts:response.data});
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  
   render() {
     return(
       <Home>
         <ListGroup>
-          <ListGroupItem header="List group item heading">
-            Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-          </ListGroupItem>
-          <ListGroupItem header="List group item heading">
-            Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-          </ListGroupItem>
-          <ListGroupItem header="List group item heading">
-            Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-          </ListGroupItem>
+          {
+            this.state.posts.map((post, index) => {
+              return <ListGroupItem href="#" key={index} header={post.title} active>
+                {post.subject}
+              </ListGroupItem>
+            })
+          }
         </ListGroup>
       </Home>
     );

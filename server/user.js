@@ -1,14 +1,8 @@
 var mysql = require('mysql');
 var assert = require('assert');
 
-var pool = mysql.createPool({
-  connectionLimit : 10,
-  host: 'localhost',
-  user: 'root',
-  password: 'admin123',
-  port: 3307,
-  database: 'react_blog'
-});
+const pool = require('./db').connectionPool;
+
 
 module.exports = {
   signup: function(name, email, password) {

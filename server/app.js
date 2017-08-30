@@ -4,6 +4,7 @@ var bodyParser = require("body-parser");
 var session = require('express-session');
 
 var user = require('./user');
+var post = require('./post');
 
 var app = express();
 var PORT = 9000;
@@ -58,14 +59,30 @@ app.post('/addpost', (req,res) => {
   var subject = req.body.subject;
   var email = req.session.email;
   try {
-    console.log(title,subject,req.session);
-    res.send('success');
+    post.addPost(title,subject, (result)=> {
+      res.send(result);
+    });
   }
   catch(e) {
     console.log(e);
     res.send('Failure');
   }
+});
 
+app.post('/getpost', (req,res) => {
+  try {
+    post.getPost((result) => {
+      if(result) {
+        res.send(result);
+      }
+      else {
+        res.send('Failure');
+      }
+    });
+  }
+  catch(e) {
+    res.send('Failure');
+  }
 });
 
 app.listen(PORT, () => {
