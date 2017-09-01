@@ -29,5 +29,18 @@ module.exports = {
                 }                    
             })
         });
+    },
+
+    getPostWithId: function(id, callback) {
+        pool.getConnection((err, connection) => {
+            if(err) return err;
+            var sqlQuery = "select `id`, `title`, `subject` from `posts` where `id` ="+id+";";
+            connection.query(sqlQuery, (err, result, fields) => {
+                connection.release();
+                if(null != result && 0 != result.length) {
+                    callback(result[0]);
+                }
+            })
+        });
     }
 }

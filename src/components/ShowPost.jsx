@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Table, Glyphicon } from 'react-bootstrap';
 import axios from 'axios';
 
@@ -26,6 +27,7 @@ class ShowPost extends Component {
 
   updatePost = id => {
     console.log('update', id);
+    window.location.assign('/addpost/' + id);
   };
 
   deletePost = id => {
@@ -53,10 +55,9 @@ class ShowPost extends Component {
                   <td>{post.title}</td>
                   <td>{post.subject}</td>
                   <td>
-                    <Glyphicon
-                      glyph="pencil"
-                      onClick={this.updatePost.bind(this, post.id)}
-                    />
+                    <Link to={'/addpost/' + post.id}>
+                      <Glyphicon glyph="pencil" />
+                    </Link>
                   </td>
                   <td>
                     <Glyphicon

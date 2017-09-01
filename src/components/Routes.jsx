@@ -15,7 +15,7 @@ const Routes = () => {
         <Route path="/signup" component={Signup} />
         <Route path="/home" component={ShowPost} />
         <Route path="/profile" component={ShowProfile} />
-        <Route path="/addpost" component={AddPost} />
+        <Route path="/addpost/:id?" component={AddPost} />
       </Switch>
     </main>
   );

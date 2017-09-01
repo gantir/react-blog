@@ -85,6 +85,24 @@ app.post('/getpost', (req,res) => {
   }
 });
 
+app.post('/getpostwithid', (req, res) => {
+  let id = req.body.id;
+  try {
+    post.getPostWithId(id, (result) => {
+      if(result){
+        console.log(result);
+        res.send(result);
+      }
+      else {
+        res.send('Failure');
+      }
+    })
+  }
+  catch(e) {
+    res.send('Failure');
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`)
 });
