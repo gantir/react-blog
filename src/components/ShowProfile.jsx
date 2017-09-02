@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Button } from 'react-bootstrap';
+import { Col, Button, Form } from 'react-bootstrap';
 
 import FieldGroup from './FieldGroup';
 import Home from './Home';
@@ -28,7 +28,7 @@ class ShowProfile extends Component {
       <Home>
         <Col md={5}>
           <div className="form-area">
-            <form role="form">
+            <Form>
               <br style={{ clear: 'both' }} />
               <FieldGroup
                 type="text"
@@ -53,7 +53,7 @@ class ShowProfile extends Component {
               >
                 Add Post
               </Button>
-            </form>
+            </Form>
           </div>
         </Col>
       </Home>
