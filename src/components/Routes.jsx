@@ -6,6 +6,7 @@ import Signup from './Signup';
 import ShowPost from './ShowPost';
 import AddPost from './AddPost';
 import ShowProfile from './ShowProfile';
+import AddTag from './AddTag';
 
 const Routes = () => {
   return (
@@ -15,6 +16,7 @@ const Routes = () => {
         <Route path="/signup" component={Signup} />
         <Route path="/home" component={ShowPost} />
         <Route path="/profile" component={ShowProfile} />
+        <Route path="/addtag" component={AddTag} />
         <Route path="/addpost/:id?" component={AddPost} />
       </Switch>
     </main>
