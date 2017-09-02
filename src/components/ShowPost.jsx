@@ -1,20 +1,38 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Glyphicon } from 'react-bootstrap';
+import { Table, Glyphicon, Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 import Home from './Home';
+
+const DeleteConfirm = props => {
+  return (
+    <Modal show={props.show} onHide={props.close}>
+      <Modal.Header closeButton>
+        <Modal.Title>Confirm Delete</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>{props.title}</Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.close}>Close</Button>
+        <Button bsStyle="primary" onClick={props.onDeletePost}>
+          Delete
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
 
 class ShowPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      showDeleteModal: []
     };
   }
 
   componentDidMount = () => {
-    var self = this;
+    let self = this;
     axios
       .post('http://localhost:9000/getpost', {})
       .then(response => {
@@ -31,7 +49,20 @@ class ShowPost extends Component {
   };
 
   deletePost = id => {
+    this.closeConfirm(id);
     console.log('delete', id);
+  };
+
+  showConfirm = id => {
+    this.displayConfirm(id, true);
+  };
+  closeConfirm = id => {
+    this.displayConfirm(id, false);
+  };
+  displayConfirm = (id, showModal) => {
+    let showDeleteModal = [];
+    showDeleteModal[id] = showModal;
+    this.setState({ showDeleteModal });
   };
 
   render() {
@@ -63,9 +94,16 @@ class ShowPost extends Component {
                     <Link
                       to="#"
                       replace={true}
-                      onClick={this.deletePost.bind(this, post.id)}
+                      onClick={this.showConfirm.bind(this, post.id)}
                     >
                       <Glyphicon glyph="remove" />
+                      <DeleteConfirm
+                        show={this.state.showDeleteModal[post.id] || false}
+                        close={this.closeConfirm.bind(this, post.id)}
+                        title={post.title}
+                        onDeletePost={this.deletePost.bind(this, post.id)}
+                        {...this.props}
+                      />
                     </Link>
                   </td>
                 </tr>
