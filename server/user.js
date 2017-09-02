@@ -25,12 +25,28 @@ module.exports = {
       connection.query(sqlquery, (qErr, result, fields) => {
         if(qErr) throw qErr;
         connection.release();
-        console.log(result);
         if(null == result || 0 === result.length) {
           callback(false);
         }
         else {
           callback(true);
+        }
+      });
+    });
+  },
+
+  getUserInfo: function(email, callback) {
+    pool.getConnection((err, connection) => {
+      if(err) throw err;
+      let sqlquery = "select id, name, email,password from `user` where email='"+email+"';";
+      connection.query(sqlquery, (qErr, result, fields) => {
+        if(qErr) throw qErr;
+        connection.release();
+        if(null == result || 0 === result.length) {
+          callback(false);
+        }
+        else {
+          callback(result[0]);
         }
       });
     });

@@ -54,6 +54,12 @@ app.post('/signup', function(req, res) {
   }
 });
 
+app.post('/getprofile', (req, res) => {
+  user.getUserInfo(sessions.email, (result) => {
+    res.send(result);
+  });
+});
+
 app.post('/addpost', (req,res) => {
   var title = req.body.title;
   var subject = req.body.subject;

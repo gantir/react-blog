@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Button, Form } from 'react-bootstrap';
+import axios from 'axios';
 
 import FieldGroup from './FieldGroup';
 import Home from './Home';
@@ -19,9 +20,34 @@ class ShowProfile extends Component {
     this.getProfile();
   };
 
-  updateProfile = () => {};
+  updateProfile = () => {
+    let self = this;
+    axios
+      .post('http://localhost:9000/updateprofile', {})
+      .then(response => {
+        self.setState({ name: response.data.name });
+        self.setState({ email: response.data.email });
+        self.setState({ password: response.data.password });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
-  getProfile = () => {};
+  getProfile = () => {
+    let self = this;
+    axios
+      .post('http://localhost:9000/getprofile', {})
+      .then(response => {
+        console.log(response);
+        self.setState({ name: response.data.name });
+        self.setState({ email: response.data.email });
+        self.setState({ password: response.data.password });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   render() {
     return (
@@ -35,13 +61,15 @@ class ShowProfile extends Component {
                 label="Name"
                 placeholder="Name"
                 required
+                value={this.state.name}
                 onChange={this.handleNameChange}
               />
               <FieldGroup
                 type="password"
-                label="password"
+                label="Password"
                 placeholder="Password"
                 required
+                value={this.state.password}
                 onChange={this.handlePasswordChange}
               />
               <Button
@@ -49,9 +77,10 @@ class ShowProfile extends Component {
                 bsStyle="primary"
                 id="submit"
                 name="submit"
-                onClick={this.addPost}
+                className="pull-right"
+                onClick={this.updateProfile}
               >
-                Add Post
+                Update
               </Button>
             </Form>
           </div>
