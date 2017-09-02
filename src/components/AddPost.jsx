@@ -1,5 +1,5 @@
-import React, { Component, hashHistory } from 'react';
-import { Col, Button } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Col, Button, Form } from 'react-bootstrap';
 
 import Home from './Home';
 import FieldGroup from './FieldGroup';
@@ -25,8 +25,7 @@ class AddPost extends Component {
   };
 
   getPostWithId = () => {
-    let id = 1;
-    //let id = this.props.params.id;
+    let id = this.props.match.params.id;
     let self = this;
     axios
       .post('http://localhost:9000/getpostwithid', {
@@ -35,7 +34,6 @@ class AddPost extends Component {
       .then(response => {
         self.setState({ title: response.data.title });
         self.setState({ subject: response.data.subject });
-        console.log(response);
       })
       .catch(err => {
         console.log('error is', err);
@@ -50,7 +48,6 @@ class AddPost extends Component {
       })
       .then(response => {
         console.log('response from add post is ', response);
-        hashHistory.push('/');
       })
       .catch(err => {
         console.log(err);
@@ -62,8 +59,7 @@ class AddPost extends Component {
       <Home>
         <Col md={5}>
           <div className="form-area">
-            <form role="form">
-              <br style={{ clear: 'both' }} />
+            <Form>
               <FieldGroup
                 id="title"
                 type="text"
@@ -91,7 +87,7 @@ class AddPost extends Component {
               >
                 Add Post
               </Button>
-            </form>
+            </Form>
           </div>
         </Col>
       </Home>
