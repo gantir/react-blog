@@ -23,11 +23,14 @@ class ShowProfile extends Component {
   updateProfile = () => {
     let self = this;
     axios
-      .post('http://localhost:9000/updateprofile', {})
+      .post('http://localhost:9000/updateprofile', {
+        name: self.state.name,
+        password: self.state.password
+      })
       .then(response => {
-        self.setState({ name: response.data.name });
-        self.setState({ email: response.data.email });
-        self.setState({ password: response.data.password });
+        if (response) {
+          self.props.history.push('/');
+        }
       })
       .catch(err => {
         console.log(err);
@@ -47,6 +50,14 @@ class ShowProfile extends Component {
       .catch(err => {
         console.log(err);
       });
+  };
+
+  handleNameChange = e => {
+    this.setState({ name: e.target.value });
+  };
+
+  handlePasswordChange = e => {
+    this.setState({ password: e.target.value });
   };
 
   render() {

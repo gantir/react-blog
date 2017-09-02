@@ -50,5 +50,20 @@ module.exports = {
         }
       });
     });
+  },
+
+  updateInfo: function(email, name, password, callback) {
+    pool.getConnection((err, connection) => {
+      var sqlquery = "update `user` set `name`='"+name+"', `password`='"+password+"' where `email`='"+email+"';";
+      connection.query(sqlquery, (qErr, result) => {
+        connection.release();
+        if(null == err) {
+          callback(true);
+        }
+        else {
+          callback(false);
+        }
+      });
+    });
   }
 }

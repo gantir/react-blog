@@ -60,6 +60,14 @@ app.post('/getprofile', (req, res) => {
   });
 });
 
+app.post('/updateprofile', (req, res) => {
+  let name = req.body.name;
+  let password = req.body.password;
+  user.updateInfo(sessions.email, name, password, (result) => {
+    res.send(result);
+  });
+});
+
 app.post('/addpost', (req,res) => {
   var title = req.body.title;
   var subject = req.body.subject;
