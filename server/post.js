@@ -17,6 +17,22 @@ module.exports = {
             });
         });
     },
+    
+    updatePost: function(id, title, subject, callback) {
+        pool.getConnection((err, connection) => {
+            if(err) throw err;
+            var sqlQuery = "update `posts` set `title` ='"+title+"', `subject`='"+subject+"' where `id`="+id+";";
+            connection.query(sqlQuery, (err, result) => {
+                connection.release();
+                if(null == err) {
+                    callback(true);
+                }
+                else {
+                    callback(false);
+                }
+            });
+        });
+    },
 
     getPost: function(callback) {
         pool.getConnection( (err, connection) => {

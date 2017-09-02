@@ -57,11 +57,19 @@ app.post('/signup', function(req, res) {
 app.post('/addpost', (req,res) => {
   var title = req.body.title;
   var subject = req.body.subject;
+  var id = req.body.id;
   var email = req.session.email;
   try {
-    post.addPost(title,subject, (result)=> {
-      res.send(result);
-    });
+    if('' == id || undefined == id) {
+      post.addPost(title,subject, (result)=> {
+        res.send(result);
+      });
+    }
+    else {
+      post.updatePost(id, title, subject, (result)=> {
+        res.send(result);
+      });
+    }
   }
   catch(e) {
     console.log(e);

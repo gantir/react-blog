@@ -10,8 +10,10 @@ class AddPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      action: 'Add Post',
       title: '',
-      subject: ''
+      subject: '',
+      id: ''
     };
     this.getPostWithId();
   }
@@ -34,6 +36,8 @@ class AddPost extends Component {
       .then(response => {
         self.setState({ title: response.data.title });
         self.setState({ subject: response.data.subject });
+        self.setState({ id: response.data.id });
+        self.setState({ action: 'Update Post' });
       })
       .catch(err => {
         console.log('error is', err);
@@ -44,10 +48,12 @@ class AddPost extends Component {
     axios
       .post('http://localhost:9000/addpost', {
         title: this.state.title,
-        subject: this.state.subject
+        subject: this.state.subject,
+        id: this.state.id
       })
       .then(response => {
         console.log('response from add post is ', response);
+        this.props.history.push('/home');
       })
       .catch(err => {
         console.log(err);
@@ -85,7 +91,7 @@ class AddPost extends Component {
                 name="submit"
                 onClick={this.addPost}
               >
-                Add Post
+                {this.state.action}
               </Button>
             </Form>
           </div>
