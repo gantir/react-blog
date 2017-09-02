@@ -18,6 +18,22 @@ module.exports = {
         });
     },
     
+    deletePost: function(id, callback) {
+        pool.getConnection((err, connection) => {
+            if(err) throw err;
+            var sqlQuery = "delete from `posts` where `id` ="+id+";";
+            connection.query(sqlQuery, (err, result) => {
+                connection.release();
+                if(null == err) {
+                    callback(true);
+                }
+                else {
+                    callback(false);
+                }
+            })
+        });
+    },
+
     updatePost: function(id, title, subject, callback) {
         pool.getConnection((err, connection) => {
             if(err) throw err;

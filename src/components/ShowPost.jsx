@@ -32,6 +32,10 @@ class ShowPost extends Component {
   }
 
   componentDidMount = () => {
+    this.getPosts();
+  };
+
+  getPosts = () => {
     let self = this;
     axios
       .post('http://localhost:9000/getpost', {})
@@ -49,8 +53,18 @@ class ShowPost extends Component {
   };
 
   deletePost = id => {
-    this.closeConfirm(id);
-    console.log('delete', id);
+    let self = this;
+    self.closeConfirm(id);
+    axios
+      .post('http://localhost:9000/deletepost', {
+        id: id
+      })
+      .then(response => {
+        self.getPosts();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   showConfirm = id => {

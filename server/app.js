@@ -98,13 +98,29 @@ app.post('/getpostwithid', (req, res) => {
   try {
     post.getPostWithId(id, (result) => {
       if(result){
-        console.log(result);
         res.send(result);
       }
       else {
         res.send('Failure');
       }
     })
+  }
+  catch(e) {
+    res.send('Failure');
+  }
+});
+
+app.post('/deletepost', (req, res) => {
+  let id = req.body.id;
+  try {
+    post.deletePost(id, (result) => {
+      if(result) {
+        res.send(result);
+      }
+      else {
+        res.send('Failure');    
+      }
+    });
   }
   catch(e) {
     res.send('Failure');
