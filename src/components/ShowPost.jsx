@@ -27,7 +27,7 @@ class ShowPost extends Component {
 
   updatePost = id => {
     console.log('update', id);
-    window.location.assign('/addpost/' + id);
+    this.props.history.push('/addpost/' + id);
   };
 
   deletePost = id => {
@@ -60,10 +60,13 @@ class ShowPost extends Component {
                     </Link>
                   </td>
                   <td>
-                    <Glyphicon
-                      glyph="remove"
+                    <Link
+                      to="#"
+                      replace={true}
                       onClick={this.deletePost.bind(this, post.id)}
-                    />
+                    >
+                      <Glyphicon glyph="remove" />
+                    </Link>
                   </td>
                 </tr>
               );
