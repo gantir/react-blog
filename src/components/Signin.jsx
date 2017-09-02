@@ -30,14 +30,13 @@ class Signin extends Component {
       })
       .then(response => {
         if ('success' === response.data) {
-          window.location.assign('/home');
+          this.props.history.push('/home');
         }
         console.log(response);
       })
       .catch(error => {
         console.log(error);
       });
-    //alert('hi'+this.state.email+this.state.password);
   };
 
   render() {
