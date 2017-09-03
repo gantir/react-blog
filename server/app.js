@@ -71,16 +71,17 @@ app.post('/updateprofile', (req, res) => {
 app.post('/addpost', (req,res) => {
   var title = req.body.title;
   var subject = req.body.subject;
+  let tag = req.body.tag;
   var id = req.body.id;
   var email = req.session.email;
   try {
     if('' == id || undefined == id) {
-      post.addPost(title,subject, (result)=> {
+      post.addPost(title, subject, tag, (result)=> {
         res.send(result);
       });
     }
     else {
-      post.updatePost(id, title, subject, (result)=> {
+      post.updatePost(id, title, subject, tag, (result)=> {
         res.send(result);
       });
     }
@@ -139,6 +140,20 @@ app.post('/deletepost', (req, res) => {
   catch(e) {
     res.send('Failure');
   }
+});
+
+
+app.post('/addtag', (req, res) => {
+  let tag = req.body.tag;
+  post.addTag(tag, (result) => {
+  res.send(result);
+  });
+});
+
+app.post('/gettag', (req, res) => {
+  post.getTag((result) => {
+    res.send(result);
+  });
 });
 
 app.listen(PORT, () => {

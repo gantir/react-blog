@@ -88,6 +88,7 @@ class ShowPost extends Component {
               <th>#</th>
               <th>Title</th>
               <th>Subject</th>
+              <th>Tag</th>
               <th />
               <th />
             </tr>
@@ -99,6 +100,7 @@ class ShowPost extends Component {
                   <td>{post.id}</td>
                   <td>{post.title}</td>
                   <td>{post.subject}</td>
+                  <td>{post.tag}</td>
                   <td>
                     <Link to={'/addpost/' + post.id}>
                       <Glyphicon glyph="pencil" />
